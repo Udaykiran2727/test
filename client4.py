@@ -4,22 +4,19 @@ import threading
 
 nickname = input("Enter your nickname: ")
 
-# Connecting To Server
 client = socket.socket()
 client.connect(('localhost', 9999))
 
 def receive():
     while True:
         try:
-            # Receive Message From Server
-            # If 'NICK' Send Nickname
+            
             message = client.recv(1024).decode('ascii')
             if message == 'NICK':
                 client.send(nickname.encode('ascii'))
             else:
                 print(message)
         except:
-            # Close Connection When Error
             print("An error occured!")
             client.close()
             break
